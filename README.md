@@ -2,7 +2,7 @@
 
 This project is a low-level memory management simulator developed in C. It manages a fixed-size array acting as a virtual RAM, implementing custom versions of `malloc` and `free` logic.
 
-## 🚀 Features
+## Features
 
 - **First-Fit Allocation:** Scans memory for the first available block that fits the requested size, ensuring fast allocation.
 - **Implicit Coalescing:** Automatically merges adjacent free blocks by zeroing out headers, creating larger contiguous free spaces.
@@ -17,7 +17,7 @@ The manager operates on a 1D integer array. Each allocated block consists of a *
 - `int my_alloc(int size)`: Allocates space and returns the starting index (handle).
 - `void my_free(int index)`: Releases the block at the given handle and clears the space for future use.
 
-## 📦 Usage
+## Usage
 
 To compile and run the project locally:
 

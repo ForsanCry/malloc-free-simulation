@@ -10,7 +10,7 @@ This project is a low-level memory management simulator developed in C. It manag
 - **Modular Design:** Highly organized architecture with dedicated functions: `find_gap`, `my_alloc`, and `my_free`.
 - **Safety Checks:** Includes boundary checks for index ranges and "Out of Memory" (OOM) error handling.
 
-## 🛠️ Technical Overview
+## Technical Overview
 
 The manager operates on a 1D integer array. Each allocated block consists of a **Header** (storing the block size) followed by the actual **Data cells**.
 

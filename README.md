@@ -1,26 +1,42 @@
-# C Custom Memory Manager (First-Fit Algorithm)
+ Custom Memory Allocator in C
 
-This project is a low-level memory management simulator developed in C. It manages a fixed-size array acting as a virtual RAM, implementing custom versions of `malloc` and `free` logic.
+A simple dynamic memory allocator simulation written in C, built without using malloc or free.
+Implements a fixed-size array-based heap with first-fit allocation and manual deallocation.
 
-## Features
+ Features
 
-- **First-Fit Allocation:** Scans memory for the first available block that fits the requested size, ensuring fast allocation.
-- **Implicit Coalescing:** Automatically merges adjacent free blocks by zeroing out headers, creating larger contiguous free spaces.
-- **Boundary Retraction:** Features a "Sweeper" logic that shrinks the `top` pointer when the last allocated block is freed, returning memory to the system.
-- **Modular Design:** Highly organized architecture with dedicated functions: `find_gap`, `my_alloc`, and `my_free`.
-- **Safety Checks:** Includes boundary checks for index ranges and "Out of Memory" (OOM) error handling.
+- First-fit gap search via find_gap()
+- Header-based block tracking (block size stored in leading cell)
+- Automatic shrinking of heap top on tail-free (top pointer rollback)
+- Interactive CLI: allocate blocks, free them by header index, inspect memory state
 
-## Technical Overview
+ How It Works
 
-The manager operates on a 1D integer array. Each allocated block consists of a **Header** (storing the block size) followed by the actual **Data cells**.
+Each allocation stores the block size in a header cell, followed by OCCUPIED (4) sentinel values.
 
-- `int my_alloc(int size)`: Allocates space and returns the starting index (handle).
-- `void my_free(int index)`: Releases the block at the given handle and clears the space for future use.
 
-## Usage
+  Index:  [0]  [1]  [2]  [3]  [4]  [5]  [6]
+  Value:   3    4    4    4    2    4    4
+           ^header  ^data      ^header  ^data
 
-To compile and run the project locally:
 
-```bash
-gcc main.c -o memory_manager
-./memory_manager
+Freeing a block zeros out the header + data cells.
+If the freed block is at the end of the heap, top is rolled back.
+
+ Usage
+
+gcc memory_allocator.c -o mem && ./mem
+
+Enter a positive number to allocate N bytes.
+Enter -1 to free a block (you'll be prompted for the header index).
+Enter 0 to exit.
+
+ Known Limitations
+
+- Fixed heap size (50 cells)
+- No coalescing of adjacent free blocks
+- Single-threaded only
+
+ Concepts Demonstrated
+
+Manual memory management · First-fit allocation · Header metadata · Heap compaction
